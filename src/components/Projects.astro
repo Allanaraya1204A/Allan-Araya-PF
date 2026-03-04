@@ -1,0 +1,126 @@
+---
+const projects = [
+  {
+    num: '01',
+    title: 'Sistema de Gestión de Transporte',
+    desc: 'Aplicación empresarial para transporte turístico. Gestión de viajes, vehículos, choferes, módulo contable con reportes y seguimiento de mantenimientos.',
+    techs: ['NestJS','React','PostgreSQL','Prisma','Docker'],
+    features: ['Gestión de viajes y flota','Módulo contable completo','Reportes semanales / mensuales','Seguimiento de mantenimientos'],
+    github: '#',
+    imgClass: 'pimg-1',
+    imgIcon: `<svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><rect x="1" y="3" width="15" height="13" rx="1"/><path d="M16 8h4l3 3v5h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>`,
+    imgLabel: 'Sistema de Transporte',
+  },
+  {
+    num: '02',
+    title: 'App de Comida con Microservicios',
+    desc: 'App de comida rápida con arquitectura de microservicios. Comunicación vía gRPC entre servicios, frontend móvil en React Native.',
+    techs: ['NestJS','gRPC','React Native','Docker','PostgreSQL'],
+    features: ['Arquitectura de microservicios','Comunicación gRPC','App móvil iOS & Android','Escalabilidad independiente'],
+    github: '#',
+    imgClass: 'pimg-2',
+    imgIcon: `<svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><path d="M3 3h18v18H3z"/><path d="M3 9h18M9 21V9"/></svg>`,
+    imgLabel: 'App Comida Microservicios',
+  },
+  {
+    num: '03',
+    title: 'Sistema de Chat en Tiempo Real',
+    desc: 'Mensajería en tiempo real con chats 1:1 y salas grupales, WebSockets, persistencia completa y arquitectura lista para alta concurrencia.',
+    techs: ['NestJS','WebSockets','PostgreSQL','Node.js'],
+    features: ['Chats 1:1 y grupales','WebSockets en tiempo real','Persistencia de mensajes','Alta concurrencia'],
+    github: '#',
+    imgClass: 'pimg-3',
+    imgIcon: `<svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>`,
+    imgLabel: 'Chat en Tiempo Real',
+  },
+];
+---
+<section id="proyectos" class="relative py-32 px-12 bg-deep">
+  <div class="absolute top-0 left-0 right-0 h-px"
+    style="background:linear-gradient(90deg,transparent,rgba(255,195,0,.2),transparent)"></div>
+
+  <div class="sec-label"><span class="mono-tag">&lt;</span>03<span class="mono-tag">/&gt;</span></div>
+
+  <h2 class="font-syne font-extrabold leading-[.9] mb-16" style="font-size:clamp(3rem,6vw,5.5rem)">
+    Proyectos<br/><span class="text-gold">destacados.</span>
+  </h2>
+
+  <!-- grid: 1px gap acts as border between cards -->
+  <div class="grid gap-[1px]" style="grid-template-columns:repeat(3,1fr); background:rgba(255,195,0,.07)">
+    {projects.map(p => (
+      <article class="proj-card reveal flex flex-col bg-deep overflow-hidden relative transition-all duration-300">
+
+        <!-- top hover bar -->
+        <div class="proj-bar absolute top-0 left-0 right-0 h-[2px] bg-gold origin-left scale-x-0 transition-transform duration-500"></div>
+
+        <!-- image area -->
+        <div class="relative h-[190px] overflow-hidden shrink-0">
+          <div class={`pimg-placeholder ${p.imgClass} w-full h-full flex flex-col items-center justify-center gap-3`}
+            style="border-bottom:1px solid rgba(255,195,0,.08)">
+            <div style="color:rgba(255,195,0,.2)" set:html={p.imgIcon}></div>
+            <span class="font-mono text-xs tracking-wide" style="color:rgba(255,195,0,.25)">{p.imgLabel}</span>
+          </div>
+          <!-- overlay hint on hover -->
+          <div class="proj-overlay absolute inset-0 flex items-center justify-center opacity-0 transition-opacity duration-300"
+            style="background:rgba(0,8,20,.75)">
+            <span class="font-mono text-xs text-gold px-3 py-1" style="border:1px dashed rgba(255,195,0,.4)">→ agrega tu screenshot</span>
+          </div>
+        </div>
+
+        <!-- body -->
+        <div class="flex flex-col gap-4 p-7 flex-1">
+          <div class="flex items-start gap-3">
+            <span class="font-mono shrink-0 pt-1" style="font-size:.62rem; color:rgba(255,195,0,.45)">{p.num}</span>
+            <h3 class="font-syne font-bold text-cream leading-snug" style="font-size:1rem">{p.title}</h3>
+          </div>
+
+          <p class="font-syne text-sm leading-relaxed" style="color:rgba(232,223,200,.45)">{p.desc}</p>
+
+          <div class="flex flex-wrap gap-[5px]">
+            {p.techs.map(t => (
+              <span class="font-mono text-gold px-2 py-[3px]"
+                style="font-size:.62rem; background:rgba(255,195,0,.06); border:1px solid rgba(255,195,0,.17)">{t}</span>
+            ))}
+          </div>
+
+          <ul class="flex flex-col gap-2">
+            {p.features.map(f => (
+              <li class="flex items-center gap-2 font-syne text-sm" style="color:rgba(232,223,200,.45)">
+                <span class="w-1 h-1 rounded-full bg-gold shrink-0" style="opacity:.55"></span>
+                {f}
+              </li>
+            ))}
+          </ul>
+
+          <div class="mt-auto">
+            <a href={p.github} class="inline-flex items-center gap-2 font-mono transition-all duration-200"
+              style="font-size:.7rem; letter-spacing:.06em; color:rgba(232,223,200,.4); border:1px solid rgba(255,255,255,.1); padding:.4rem .9rem">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12c0 4.42 2.87 8.17 6.84 9.49.5.09.68-.22.68-.48v-1.69c-2.78.6-3.37-1.34-3.37-1.34-.45-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.61.07-.61 1 .07 1.53 1.03 1.53 1.03.89 1.52 2.34 1.08 2.91.83.09-.65.35-1.08.63-1.33-2.22-.25-4.55-1.11-4.55-4.94 0-1.09.39-1.98 1.03-2.68-.1-.25-.45-1.27.1-2.64 0 0 .84-.27 2.75 1.02A9.56 9.56 0 0112 6.8c.85 0 1.71.11 2.51.33 1.91-1.29 2.75-1.02 2.75-1.02.55 1.37.2 2.39.1 2.64.64.7 1.03 1.59 1.03 2.68 0 3.84-2.34 4.68-4.57 4.93.36.31.68.92.68 1.85v2.74c0 .27.18.58.69.48A10.01 10.01 0 0022 12c0-5.52-4.48-10-10-10z"/></svg>
+              GitHub
+            </a>
+          </div>
+        </div>
+      </article>
+    ))}
+  </div>
+</section>
+
+<style>
+  .pimg-1 { background: linear-gradient(135deg, #001428, #003566); }
+  .pimg-2 { background: linear-gradient(135deg, #0a0e13, #001d3d); }
+  .pimg-3 { background: linear-gradient(135deg, #001428, #002d5c); }
+  .proj-card:hover { background: #002040; }
+  .proj-card:hover .proj-bar { transform: scaleX(1); }
+  .proj-card:hover .proj-overlay { opacity: 1; }
+  .proj-card:hover a { color: #e8dfc8; border-color: rgba(255,255,255,.3); }
+  @media(max-width:900px){
+    section > div:last-child { grid-template-columns: 1fr !important; }
+  }
+</style>
+
+<script>
+  const obs = new IntersectionObserver(entries=>{
+    entries.forEach(e=>{ if(e.isIntersecting) e.target.classList.add('visible'); });
+  },{threshold:0.08});
+  document.querySelectorAll('#proyectos .reveal').forEach(el=>obs.observe(el));
+</script>

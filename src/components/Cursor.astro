@@ -1,0 +1,29 @@
+---
+---
+<div class="cur" id="cur"></div>
+<div class="cur-ring" id="curRing"></div>
+
+<script>
+  const cur  = document.getElementById('cur')!;
+  const ring = document.getElementById('curRing')!;
+  let mx=0, my=0, rx=0, ry=0;
+
+  document.addEventListener('mousemove', e => {
+    mx = e.clientX; my = e.clientY;
+    cur.style.left = mx + 'px';
+    cur.style.top  = my + 'px';
+  });
+
+  (function loop() {
+    rx += (mx - rx) * .13;
+    ry += (my - ry) * .13;
+    ring.style.left = rx + 'px';
+    ring.style.top  = ry + 'px';
+    requestAnimationFrame(loop);
+  })();
+
+  document.querySelectorAll('a, button, .proj-card, .contact-item, .ide-tab, .isb-file, .sv-chip').forEach(el => {
+    el.addEventListener('mouseenter', () => ring.classList.add('big'));
+    el.addEventListener('mouseleave', () => ring.classList.remove('big'));
+  });
+</script>

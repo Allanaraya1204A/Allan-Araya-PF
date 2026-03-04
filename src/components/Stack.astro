@@ -1,0 +1,235 @@
+---
+---
+<section id="stack" class="py-32 px-12 bg-ink">
+
+  <div class="sec-label"><span class="mono-tag">&lt;</span>02<span class="mono-tag">/&gt;</span></div>
+
+  <h2 class="font-syne font-extrabold leading-[.9] mb-14" style="font-size:clamp(3rem,6vw,5.5rem)">
+    Stack<br/><span class="text-gold">tecnológico.</span>
+  </h2>
+
+  <!-- SPLIT SCREEN -->
+  <div id="stackSplit" class="reveal grid min-h-[480px]"
+    style="grid-template-columns:1fr 32px 1fr; border:1px solid rgba(255,195,0,.1)">
+
+    <!-- ── LEFT: IDE / Terminal ── -->
+    <div class="flex flex-col overflow-hidden" style="background:#0d1117">
+
+      <!-- topbar -->
+      <div class="flex items-center gap-3 px-4 py-[7px] shrink-0"
+        style="background:#161b22; border-bottom:1px solid rgba(255,255,255,.06)">
+        <div class="flex gap-[5px]">
+          <span class="w-[11px] h-[11px] rounded-full" style="background:#ff5f57"></span>
+          <span class="w-[11px] h-[11px] rounded-full bg-gold"></span>
+          <span class="w-[11px] h-[11px] rounded-full" style="background:#28c840"></span>
+        </div>
+        <div id="ideTabs" class="flex flex-1 overflow-x-auto">
+          <button class="ide-tab active font-mono text-xs px-3 py-1 border-b-2 border-transparent transition-all" data-tab="frontend">frontend.ts</button>
+          <button class="ide-tab font-mono text-xs px-3 py-1 border-b-2 border-transparent transition-all" data-tab="backend">backend.ts</button>
+          <button class="ide-tab font-mono text-xs px-3 py-1 border-b-2 border-transparent transition-all" data-tab="database">database.ts</button>
+          <button class="ide-tab font-mono text-xs px-3 py-1 border-b-2 border-transparent transition-all" data-tab="devops">devops.ts</button>
+        </div>
+        <div class="flex items-center gap-1 font-mono shrink-0" style="font-size:.65rem; color:rgba(255,255,255,.25)">
+          <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="6" y1="3" x2="6" y2="15"/><circle cx="18" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><path d="M18 9a9 9 0 01-9 9"/></svg>
+          main
+        </div>
+      </div>
+
+      <!-- sidebar + editor -->
+      <div class="flex flex-1 min-h-0 overflow-hidden">
+        <!-- sidebar -->
+        <div id="ideSidebar" class="w-[145px] shrink-0 py-3 overflow-y-auto"
+          style="background:#0d1117; border-right:1px solid rgba(255,255,255,.05)">
+          <div class="font-mono px-3 pb-3" style="font-size:.58rem; letter-spacing:.12em; color:rgba(255,255,255,.22)">EXPLORER</div>
+          <div class="isb-file active flex items-center gap-[6px] px-3 py-[5px] cursor-pointer font-mono transition-all" data-tab="frontend" style="font-size:.68rem; color:rgba(255,255,255,.38)">
+            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="opacity:.45"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+            frontend.ts
+          </div>
+          <div class="isb-file flex items-center gap-[6px] px-3 py-[5px] cursor-pointer font-mono transition-all" data-tab="backend" style="font-size:.68rem; color:rgba(255,255,255,.38)">
+            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="opacity:.45"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+            backend.ts
+          </div>
+          <div class="isb-file flex items-center gap-[6px] px-3 py-[5px] cursor-pointer font-mono transition-all" data-tab="database" style="font-size:.68rem; color:rgba(255,255,255,.38)">
+            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="opacity:.45"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+            database.ts
+          </div>
+          <div class="isb-file flex items-center gap-[6px] px-3 py-[5px] cursor-pointer font-mono transition-all" data-tab="devops" style="font-size:.68rem; color:rgba(255,255,255,.38)">
+            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="opacity:.45"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+            devops.ts
+          </div>
+        </div>
+
+        <!-- editor area -->
+        <div class="flex flex-1 overflow-auto">
+          <div id="ideGutter" class="flex flex-col items-end px-2 py-4 min-w-[36px] font-mono shrink-0 select-none leading-[1.65]"
+            style="font-size:.68rem; color:rgba(255,255,255,.14); border-right:1px solid rgba(255,255,255,.04)"></div>
+          <div id="ideCode" class="flex-1 p-4 font-mono leading-[1.65] overflow-x-auto whitespace-pre"
+            style="font-size:.75rem; color:#c9d1d9"></div>
+        </div>
+      </div>
+
+      <!-- output bar -->
+      <div style="border-top:1px solid rgba(255,255,255,.05); background:#090d12">
+        <div class="font-mono px-4 py-[5px]" style="font-size:.6rem; letter-spacing:.1em; color:rgba(255,255,255,.22); border-bottom:1px solid rgba(255,255,255,.04)">TERMINAL</div>
+        <div class="flex items-center gap-2 px-4 py-[7px] font-mono" style="font-size:.7rem">
+          <span class="text-gold">$</span>
+          <span id="outText" style="color:rgba(255,255,255,.45)">npm run dev — compilado sin errores ✓</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── CENTER DIVIDER ── -->
+    <div class="flex flex-col items-center justify-center gap-4"
+      style="background:#0d1117; border-left:1px solid rgba(255,195,0,.08); border-right:1px solid rgba(255,195,0,.08)">
+      <div class="flex-1 w-px" style="background:linear-gradient(to bottom,transparent,rgba(255,195,0,.2),transparent)"></div>
+      <span class="font-mono text-xs" style="color:rgba(255,195,0,.4); writing-mode:vertical-rl; letter-spacing:.2em">⇄</span>
+      <div class="flex-1 w-px" style="background:linear-gradient(to bottom,rgba(255,195,0,.2),transparent)"></div>
+    </div>
+
+    <!-- ── RIGHT: Visual logos ── -->
+    <div class="flex flex-col overflow-hidden" style="background:#0d1117">
+      <!-- header -->
+      <div class="flex items-center gap-3 px-4 py-[7px] shrink-0"
+        style="background:#161b22; border-bottom:1px solid rgba(255,255,255,.06)">
+        <div class="flex gap-[5px]">
+          <span class="w-[11px] h-[11px] rounded-full" style="background:rgba(255,255,255,.08)"></span>
+          <span class="w-[11px] h-[11px] rounded-full" style="background:rgba(255,255,255,.08)"></span>
+          <span class="w-[11px] h-[11px] rounded-full" style="background:rgba(255,255,255,.08)"></span>
+        </div>
+        <span id="svTitle" class="flex-1 text-center font-mono" style="font-size:.72rem; color:rgba(255,255,255,.4); letter-spacing:.1em">Frontend</span>
+      </div>
+      <!-- logo grid -->
+      <div id="svBody" class="flex-1 p-5 grid gap-3 content-start overflow-y-auto"
+        style="grid-template-columns:repeat(3,1fr)">
+        <!-- filled by JS -->
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<style>
+  .ide-tab { color: rgba(255,255,255,.3); border-bottom-color: transparent; }
+  .ide-tab.active { color: #e8dfc8; border-bottom-color: #ffc300; background: rgba(255,195,0,.04); }
+  .ide-tab:hover:not(.active) { color: rgba(255,255,255,.55); }
+  .isb-file:hover { background: rgba(255,255,255,.05); color: #e8dfc8; }
+  .isb-file.active { background: rgba(255,195,0,.07); color: #e8dfc8; }
+  .sv-chip { display:flex; flex-direction:column; align-items:center; justify-content:center; gap:.5rem; padding:1rem .5rem; background:rgba(255,255,255,.03); border:1px solid rgba(255,255,255,.06); transition:all .2s; cursor:default; }
+  .sv-chip:hover { background:rgba(255,195,0,.07); border-color:rgba(255,195,0,.28); transform:translateY(-2px); }
+  .sv-chip-icon { font-size:1.6rem; line-height:1; }
+  .sv-chip-name { font-family:'JetBrains Mono',monospace; font-size:.6rem; color:rgba(255,255,255,.5); text-align:center; letter-spacing:.05em; }
+  .sv-chip:hover .sv-chip-name { color:#ffc300; }
+  @media(max-width:1100px){
+    #stackSplit { grid-template-columns:1fr !important; }
+    #stackSplit > *:nth-child(2) { display:none; }
+  }
+  @media(max-width:600px){ #ideSidebar { display:none; } }
+</style>
+
+<script>
+const tabData: Record<string,string> = {
+  frontend:`<span class="c-cmt">// Stack de Frontend</span>
+<span class="c-kw">import</span> { <span class="c-def">Component</span> } <span class="c-kw">from</span> <span class="c-str">'@/core'</span>;
+
+<span class="c-kw">const</span> <span class="c-cls">FrontendStack</span> = {
+  frameworks: [<span class="c-str">'React JS'</span>, <span class="c-str">'React Native'</span>],
+  languages:  [<span class="c-str">'TypeScript'</span>, <span class="c-str">'JavaScript'</span>],
+  markup:     [<span class="c-str">'HTML5'</span>, <span class="c-str">'CSS3'</span>],
+
+  <span class="c-fn">build</span>(<span class="c-def">idea</span>: <span class="c-cls">string</span>) {
+    <span class="c-kw">return</span> <span class="c-str">\`Construyendo: \${idea}\`</span>;
+  }
+};
+<span class="c-kw">export default</span> <span class="c-cls">FrontendStack</span>;`,
+
+  backend:`<span class="c-cmt">// Stack de Backend</span>
+<span class="c-kw">import</span> { <span class="c-def">Injectable</span> } <span class="c-kw">from</span> <span class="c-str">'@nestjs/common'</span>;
+<span class="c-kw">import</span> { <span class="c-def">GrpcMethod</span> } <span class="c-kw">from</span> <span class="c-str">'@nestjs/microservices'</span>;
+
+<span class="c-def">@Injectable</span>()
+<span class="c-kw">class</span> <span class="c-cls">BackendStack</span> {
+  runtime    = <span class="c-str">'Node.js'</span>;
+  framework  = <span class="c-str">'NestJS'</span>;
+  protocols  = [<span class="c-str">'REST'</span>, <span class="c-str">'gRPC'</span>];
+  pattern    = <span class="c-str">'Microservices'</span>;
+
+  <span class="c-def">@GrpcMethod</span>()
+  <span class="c-fn">handleRequest</span>(<span class="c-def">data</span>: <span class="c-cls">any</span>) {
+    <span class="c-kw">return</span> { status: <span class="c-str">'OK'</span>, data };
+  }
+}`,
+
+  database:`<span class="c-cmt">// Bases de Datos</span>
+<span class="c-kw">import</span> { <span class="c-cls">PrismaClient</span> } <span class="c-kw">from</span> <span class="c-str">'@prisma/client'</span>;
+
+<span class="c-kw">const</span> <span class="c-def">prisma</span> = <span class="c-kw">new</span> <span class="c-cls">PrismaClient</span>();
+
+<span class="c-kw">const</span> <span class="c-cls">DatabaseStack</span> = {
+  relational: [<span class="c-str">'PostgreSQL'</span>, <span class="c-str">'MySQL'</span>, <span class="c-str">'SQL Server'</span>],
+  orm:        <span class="c-str">'Prisma ORM'</span>,
+
+  <span class="c-kw">async</span> <span class="c-fn">query</span>(<span class="c-def">model</span>: <span class="c-cls">string</span>) {
+    <span class="c-kw">return await</span> prisma[model].findMany();
+  }
+};`,
+
+  devops:`<span class="c-cmt">// Cloud & DevOps</span>
+<span class="c-kw">FROM</span> node:<span class="c-num">20</span>-alpine
+
+<span class="c-kw">const</span> <span class="c-cls">DevOpsStack</span> = {
+  containers:  [<span class="c-str">'Docker'</span>],
+  cloud:       [<span class="c-str">'AWS'</span>, <span class="c-str">'Azure'</span>],
+  versionCtrl: [<span class="c-str">'Git'</span>, <span class="c-str">'GitHub'</span>],
+  status:      <span class="c-str">'learning & growing'</span>,
+
+  <span class="c-fn">deploy</span>(<span class="c-def">app</span>: <span class="c-cls">string</span>) {
+    console.<span class="c-fn">log</span>(<span class="c-str">\`Deploying \${app}...\`</span>);
+    <span class="c-kw">return</span> { env: <span class="c-str">'production'</span> };
+  }
+};`
+};
+
+const tabLogos: Record<string,{icon:string,name:string}[]> = {
+  frontend: [{icon:'⚛️',name:'React JS'},{icon:'📱',name:'React Native'},{icon:'🔷',name:'TypeScript'},{icon:'🟨',name:'JavaScript'},{icon:'🌐',name:'HTML5'},{icon:'🎨',name:'CSS3'}],
+  backend:  [{icon:'🟢',name:'Node.js'},{icon:'🐱',name:'NestJS'},{icon:'⚡',name:'gRPC'},{icon:'🔗',name:'REST APIs'},{icon:'🧩',name:'Microservicios'}],
+  database: [{icon:'🐘',name:'PostgreSQL'},{icon:'🐬',name:'MySQL'},{icon:'🔷',name:'SQL Server'},{icon:'✨',name:'Prisma ORM'}],
+  devops:   [{icon:'🐳',name:'Docker'},{icon:'☁️',name:'AWS'},{icon:'🔵',name:'Azure'},{icon:'🐙',name:'GitHub'},{icon:'📦',name:'Git'}]
+};
+
+const tabTitles: Record<string,string> = { frontend:'Frontend', backend:'Backend', database:'Database', devops:'DevOps' };
+const outTexts:  Record<string,string>  = {
+  frontend:'Vite build — frontend compilado ✓',
+  backend: 'NestJS server running on :3000 ✓',
+  database:'Prisma migrate deploy — done ✓',
+  devops:  'Docker build — imagen lista ✓'
+};
+
+function setTab(name: string) {
+  const codeEl   = document.getElementById('ideCode')!;
+  const gutterEl = document.getElementById('ideGutter')!;
+  const svBody   = document.getElementById('svBody')!;
+  const svTitle  = document.getElementById('svTitle')!;
+  const outText  = document.getElementById('outText')!;
+
+  codeEl.innerHTML   = tabData[name];
+  const lines        = tabData[name].split('\n').length;
+  gutterEl.innerHTML = Array.from({length:lines},(_,i)=>`<span>${i+1}</span>`).join('');
+  svTitle.textContent = tabTitles[name];
+  svBody.innerHTML   = tabLogos[name].map(t=>`<div class="sv-chip"><span class="sv-chip-icon">${t.icon}</span><span class="sv-chip-name">${t.name}</span></div>`).join('');
+  outText.textContent = outTexts[name];
+
+  document.querySelectorAll('.ide-tab').forEach(t => t.classList.toggle('active',(t as HTMLElement).dataset.tab===name));
+  document.querySelectorAll('.isb-file').forEach(f => f.classList.toggle('active',(f as HTMLElement).dataset.tab===name));
+}
+
+setTab('frontend');
+document.querySelectorAll('.ide-tab,.isb-file').forEach(el => {
+  el.addEventListener('click', () => setTab((el as HTMLElement).dataset.tab!));
+});
+
+// reveal
+const obs = new IntersectionObserver(entries=>{
+  entries.forEach(e=>{ if(e.isIntersecting) e.target.classList.add('visible'); });
+},{threshold:0.08});
+document.querySelectorAll('#stack .reveal').forEach(el=>obs.observe(el));
+</script>

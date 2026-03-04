@@ -1,0 +1,175 @@
+---
+---
+<section id="hero" class="relative min-h-screen flex items-center overflow-hidden bg-ink"
+  style="padding: 120px 3rem 4rem;">
+
+  <!-- scanlines -->
+  <div class="scanlines"></div>
+
+  <!-- particles -->
+  <canvas id="particles" class="absolute inset-0 z-0"></canvas>
+
+  <!--
+    PARALLAX: usamos background-attachment:fixed en un pseudo-elemento
+    con el texto "DEVELOPER" — así se queda fijo mientras el contenido sube
+  -->
+  <div id="heroBgWord"
+    class="absolute right-[-1rem] top-1/2 pointer-events-none text-blue-600 select-none z-0 font-syne font-extrabold"
+    style="
+      font-size: clamp(8rem,18vw,10rem);
+      color: transparent;
+      -webkit-text-stroke: 1px rgba(0,53,102,.45);
+      transform: translateY(-50%);
+      will-change: transform;
+    ">DEVELOPER</div>
+
+  <!-- content -->
+  <div class="relative z-[2] w-full max-w-[1100px]">
+
+    <!-- terminal prompt -->
+    <div class="flex items-center gap-2 font-mono text-sm mb-5" style="color:rgba(232,223,200,.45)">
+      <span class="text-gold">~/allan-araya</span>
+      <span id="heroCmd"></span>
+      <span class="text-gold" style="animation:blink .8s step-end infinite">▋</span>
+    </div>
+
+    <!-- giant name -->
+    <h1 class="font-syne font-extrabold leading-[.88] mb-6 select-none"
+        style="font-size: clamp(5rem,14vw,15rem)">
+      <span id="hn1" class="block text-cream" style="animation: slideUp .9s .1s cubic-bezier(.16,1,.3,1) both">Allan</span>
+      <span class="block" style="animation: slideUp .9s .25s cubic-bezier(.16,1,.3,1) both">
+        <span id="hn2" class="transition-all duration-300 cursor-default"
+          style="-webkit-text-stroke:2px #e8dfc8; color:transparent">Araya</span>
+      </span>
+    </h1>
+
+    <!-- role typewriter -->
+    <div class="font-mono mb-8" style="font-size:clamp(.82rem,1.4vw,1.05rem); color:rgba(232,223,200,.45); animation:fadeIn .8s .5s ease both">
+      <span class="text-gold">// </span><span id="roleText"></span>
+    </div>
+
+    <!-- meta row -->
+    <div class="flex items-center gap-6 flex-wrap mb-12" style="animation:fadeIn .8s .65s ease both">
+      <div class="w-px h-7" style="background:rgba(255,195,0,.2)"></div>
+      <div class="flex flex-col gap-[3px]">
+        <span class="font-mono text-gold uppercase tracking-widest" style="font-size:.6rem">focus</span>
+        <span class="font-mono text-cream text-sm">Web · Mobile · Cloud</span>
+      </div>
+      <div class="w-px h-7" style="background:rgba(255,195,0,.2)"></div>
+      <div class="flex flex-col gap-[3px]">
+        <span class="font-mono text-gold uppercase tracking-widest" style="font-size:.6rem">status</span>
+        <span class="font-mono text-green-400 text-sm">● disponible</span>
+      </div>
+    </div>
+
+    <!-- CTAs -->
+    <div class="flex gap-4 flex-wrap" style="animation:fadeIn .8s .8s ease both">
+      <a href="#proyectos" class="cta-primary">
+        ver proyectos
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+      <a href="#contacto" class="cta-secondary">contacto</a>
+    </div>
+  </div>
+
+  <!-- scroll indicator -->
+  <div class="absolute bottom-10 right-12 z-[2] flex flex-col items-center gap-2 font-mono uppercase tracking-widest"
+    style="font-size:.6rem; color:rgba(232,223,200,.25); animation:fadeIn 1s 1.2s ease both">
+    <div class="w-px h-12 relative overflow-hidden" style="background:rgba(255,195,0,.15)">
+      <div class="absolute top-0 left-0 right-0 h-[40%] bg-gold scroll-bar"></div>
+    </div>
+    <span>scroll</span>
+  </div>
+</section>
+
+<style>
+@keyframes slideUp  { from{opacity:0;transform:translateY(60px)} to{opacity:1;transform:translateY(0)} }
+@keyframes fadeIn   { from{opacity:0} to{opacity:1} }
+@keyframes blink    { 0%,100%{opacity:1} 50%{opacity:0} }
+</style>
+
+<script>
+// ── PARALLAX (background-attachment:fixed approach via JS transform)
+const bgWord = document.getElementById('heroBgWord')!;
+const hn1    = document.getElementById('hn1')!;
+const hn2    = document.getElementById('hn2')!;
+
+function onScroll() {
+  const y = window.scrollY;
+  bgWord.style.transform = `translateY(calc(-50% + ${y * 0.2}px))`;
+  hn1.style.transform    = `translateY(${y * 0.04}px)`;
+  hn2.style.transform    = `translateY(${y * 0.09}px)`;
+}
+window.addEventListener('scroll', onScroll, { passive: true });
+
+// ── hover Araya outline → gold
+hn2.addEventListener('mouseenter', () => {
+  hn2.style.color = '#ffc300';
+  hn2.style.webkitTextStroke = '2px #ffc300';
+});
+hn2.addEventListener('mouseleave', () => {
+  hn2.style.color = 'transparent';
+  hn2.style.webkitTextStroke = '2px #e8dfc8';
+});
+
+// ── TERMINAL CMD typewriter
+const heroCmd = document.getElementById('heroCmd')!;
+const cmd = ' ./run-portfolio.sh';
+let ci = 0;
+const typeCmd = () => {
+  if (ci < cmd.length) { heroCmd.textContent += cmd[ci++]; setTimeout(typeCmd, 60 + Math.random() * 40); }
+};
+setTimeout(typeCmd, 800);
+
+// ── ROLE rotator
+const roles = ['Full Stack Developer','Backend Engineer','Mobile Developer','IT Engineer'];
+const roleEl = document.getElementById('roleText')!;
+let ri = 0, rci = 0, del = false;
+function typeRole() {
+  const cur = roles[ri];
+  if (!del) {
+    roleEl.textContent = cur.slice(0, ++rci);
+    if (rci === cur.length) { del = true; setTimeout(typeRole, 2200); return; }
+  } else {
+    roleEl.textContent = cur.slice(0, --rci);
+    if (rci === 0) { del = false; ri = (ri + 1) % roles.length; }
+  }
+  setTimeout(typeRole, del ? 38 : 80 + Math.random() * 25);
+}
+setTimeout(typeRole, 1600);
+
+// ── PARTICLES canvas
+const canvas = document.getElementById('particles') as HTMLCanvasElement;
+const ctx    = canvas.getContext('2d')!;
+let W = canvas.width  = window.innerWidth;
+let H = canvas.height = window.innerHeight;
+window.addEventListener('resize', () => {
+  W = canvas.width  = window.innerWidth;
+  H = canvas.height = window.innerHeight;
+}, { passive: true });
+
+const pts: { x:number,y:number,vx:number,vy:number,r:number,a:number }[] = [];
+for (let k = 0; k < 50; k++)
+  pts.push({ x:Math.random()*W, y:Math.random()*H, vx:(Math.random()-.5)*.28, vy:(Math.random()-.5)*.28, r:Math.random()*1.4+.4, a:Math.random()*.35+.08 });
+
+(function draw() {
+  ctx.clearRect(0, 0, W, H);
+  pts.forEach(d => {
+    d.x += d.vx; d.y += d.vy;
+    if (d.x < 0) d.x = W; if (d.x > W) d.x = 0;
+    if (d.y < 0) d.y = H; if (d.y > H) d.y = 0;
+    ctx.beginPath(); ctx.arc(d.x, d.y, d.r, 0, Math.PI*2);
+    ctx.fillStyle = `rgba(0,53,102,${d.a})`; ctx.fill();
+  });
+  for (let a = 0; a < pts.length; a++)
+    for (let b = a+1; b < pts.length; b++) {
+      const dx = pts[a].x - pts[b].x, dy = pts[a].y - pts[b].y;
+      const dist = Math.sqrt(dx*dx + dy*dy);
+      if (dist < 115) {
+        ctx.beginPath(); ctx.moveTo(pts[a].x, pts[a].y); ctx.lineTo(pts[b].x, pts[b].y);
+        ctx.strokeStyle = `rgba(0,53,102,${(1-dist/115)*.22})`; ctx.lineWidth = .5; ctx.stroke();
+      }
+    }
+  requestAnimationFrame(draw);
+})();
+</script>

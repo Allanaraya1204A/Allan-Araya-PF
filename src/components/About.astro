@@ -1,0 +1,89 @@
+---
+
+---
+
+<section id="sobre" class="relative py-32 px-12 bg-deep">
+  <!-- top gold line -->
+  <div
+    class="absolute top-0 left-0 right-0 h-px"
+    style="background:linear-gradient(90deg,transparent,rgba(255,195,0,.2),transparent)"
+  >
+  </div>
+
+  <div class="sec-label">
+    <span class="mono-tag">&lt;</span>01<span class="mono-tag">/&gt;</span>
+  </div>
+
+  <div class="grid gap-16 items-start" style="grid-template-columns: 1fr 2fr">
+    <!-- left: title -->
+    <div class="reveal">
+      <h2
+        class="font-syne font-extrabold leading-[.9] text-cream"
+        style="font-size:clamp(3rem,6vw,5.5rem)"
+      >
+        Sobre<br /><span class="text-gold">mí.</span>
+      </h2>
+      <div class="w-10 h-[3px] bg-gold mt-8"></div>
+    </div>
+
+    <!-- right: text -->
+    <div class="reveal">
+      <p
+        class="font-syne font-bold text-cream mb-6 leading-snug"
+        style="font-size:clamp(1.1rem,2.2vw,1.6rem)"
+      >
+        Soy desarrollador de software<br />e ingeniero en TI.
+      </p>
+      <p
+        class="font-syne text-sm leading-loose mb-5"
+        style="color:rgba(232,223,200,.45)"
+      >
+        Me especializo en desarrollo web y móvil, con experiencia en
+        aplicaciones empresariales orientadas a la gestión y optimización de
+        procesos. Trabajo tanto en frontend como en backend — entiendo el
+        sistema completo, cómo cada pieza impacta a las demás.
+      </p>
+      <p
+        class="font-syne text-sm leading-loose mb-8"
+        style="color:rgba(232,223,200,.45)"
+      >
+        Actualmente enfocado en crecer en arquitectura backend, sistemas
+        escalables y computación en la nube. Siempre aprendiendo, siempre
+        mejorando lo que ya construí.
+      </p>
+
+      <div class="flex flex-wrap gap-2">
+        {
+          [
+            "Microservicios",
+            "REST APIs",
+            "gRPC",
+            "Cloud",
+            "Mobile",
+            "Escalabilidad",
+          ].map((tag) => (
+            <span
+              class="font-mono text-gold text-xs tracking-wide px-3 py-1"
+              style="background:rgba(255,195,0,.07); border:1px solid rgba(255,195,0,.2)"
+            >
+              {tag}
+            </span>
+          ))
+        }
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  // reveal on scroll
+  const obs = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((e) => {
+        if (e.isIntersecting) e.target.classList.add("visible");
+      });
+    },
+    { threshold: 0.1 },
+  );
+  document.querySelectorAll("#sobre .reveal").forEach((el) => obs.observe(el));
+</script>

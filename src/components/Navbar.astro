@@ -1,0 +1,83 @@
+---
+
+---
+
+<nav
+  id="mainNav"
+  class="fixed top-0 left-0 right-0 z-[500] flex items-center justify-between px-12 py-5 transition-all duration-300"
+  style="background: rgba(0,8,20,0.92); backdrop-filter: blur(14px); border-bottom: 1px solid rgba(255,195,0,0.07);"
+>
+  <div class="font-mono font-bold tracking-wide text-cream">
+    <span class="text-gold">[</span>AA<span class="text-gold">]</span>
+  </div>
+
+  <ul class="flex gap-10 list-none">
+    <li>
+      <a
+        href="#sobre"
+        class="font-mono text-xs tracking-widest lowercase transition-colors duration-300"
+        style="color:rgba(232,223,200,.55)">sobre&nbsp;mí</a>
+    </li>
+    <li>
+      <a
+        href="#stack"
+        class="font-mono text-xs tracking-widest lowercase transition-colors duration-300"
+        style="color:rgba(232,223,200,.55)">stack</a>
+    </li>
+    <li>
+      <a
+        href="#proyectos"
+        class="font-mono text-xs tracking-widest lowercase transition-colors duration-300"
+        style="color:rgba(232,223,200,.55)">proyectos</a>
+    </li>
+    <li>
+      <a
+        href="#contacto"
+        class="font-mono text-xs tracking-widest lowercase transition-colors duration-300"
+        style="color:rgba(232,223,200,.55)">contacto</a>
+    </li>
+  </ul>
+
+  <div
+    class="flex items-center gap-2 font-mono text-xs"
+    style="color:rgba(232,223,200,.45)"
+  >
+    <span class="badge-dot"></span>
+    open to work
+  </div>
+</nav>
+
+<script>
+  const nav = document.getElementById("mainNav")!;
+
+  // shrink on scroll
+  window.addEventListener(
+    "scroll",
+    () => {
+      nav.style.paddingTop = window.scrollY > 50 ? ".6rem" : "1.25rem";
+      nav.style.paddingBottom = window.scrollY > 50 ? ".6rem" : "1.25rem";
+    },
+    { passive: true },
+  );
+
+  // highlight active section
+  window.addEventListener(
+    "scroll",
+    () => {
+      const sections = document.querySelectorAll("section[id]");
+      const links = nav.querySelectorAll("a");
+      let current = "";
+      sections.forEach((s) => {
+        if (window.scrollY >= (s as HTMLElement).offsetTop - 200)
+          current = s.id;
+      });
+      links.forEach((a) => {
+        a.style.color =
+          a.getAttribute("href") === "#" + current
+            ? "#e8dfc8"
+            : "rgba(232,223,200,.55)";
+      });
+    },
+    { passive: true },
+  );
+</script>
