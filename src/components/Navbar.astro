@@ -1,83 +1,121 @@
 ---
-
+// Navbar.astro
+const paths = [
+  { name: "Sobre mí", link: "#sobre" },
+  { name: "Stack", link: "#stack" },
+  { name: "Proyectos", link: "#proyectos" },
+  { name: "Contacto", link: "#contacto" },
+];
 ---
 
-<nav
-  id="mainNav"
-  class="fixed top-0 left-0 right-0 z-[500] flex items-center justify-between px-12 py-5 transition-all duration-300"
-  style="background: rgba(0,8,20,0.92); backdrop-filter: blur(14px); border-bottom: 1px solid rgba(255,195,0,0.07);"
->
-  <div class="font-mono font-bold tracking-wide text-cream">
+<nav id="mainNav" class="fixed top-0 left-0 right-0 z-[500] flex items-center justify-between px-6 md:px-12 py-5 transition-all duration-500 bg-[#000814]/90 backdrop-blur-xl border-b border-white/5">
+  
+  <div class="font-mono font-bold tracking-wide text-cream relative z-[601]">
     <span class="text-gold">[</span>AA<span class="text-gold">]</span>
   </div>
 
-  <ul class="flex gap-10 list-none">
-    <li>
-      <a
-        href="#sobre"
-        class="font-mono text-xs tracking-widest lowercase transition-colors duration-300"
-        style="color:rgba(232,223,200,.55)">sobre&nbsp;mí</a>
-    </li>
-    <li>
-      <a
-        href="#stack"
-        class="font-mono text-xs tracking-widest lowercase transition-colors duration-300"
-        style="color:rgba(232,223,200,.55)">stack</a>
-    </li>
-    <li>
-      <a
-        href="#proyectos"
-        class="font-mono text-xs tracking-widest lowercase transition-colors duration-300"
-        style="color:rgba(232,223,200,.55)">proyectos</a>
-    </li>
-    <li>
-      <a
-        href="#contacto"
-        class="font-mono text-xs tracking-widest lowercase transition-colors duration-300"
-        style="color:rgba(232,223,200,.55)">contacto</a>
-    </li>
+  <button id="burger-menu-button" class="flex flex-col gap-1.5 z-[601] md:hidden group p-2 focus:outline-none">
+    <span class="w-6 h-px bg-gold transition-all duration-300 line-1"></span>
+    <span class="w-6 h-px bg-gold transition-all duration-300 line-2"></span>
+    <span class="w-6 h-px bg-gold transition-all duration-300 line-3"></span>
+  </button>
+
+  <ul class="hidden md:flex gap-10 list-none">
+    {paths.map(path => (
+      <li>
+        <a href={path.link} class="nav-item-desktop font-mono text-xs tracking-widest lowercase text-white/50 hover:text-gold transition-colors">
+          {path.name}
+        </a>
+      </li>
+    ))}
   </ul>
 
-  <div
-    class="flex items-center gap-2 font-mono text-xs"
-    style="color:rgba(232,223,200,.45)"
-  >
-    <span class="badge-dot"></span>
-    open to work
+  <div id="dropdown" class="fixed top-0 right-0 bg-[#000814] w-full md:w-96 z-[600] h-screen translate-x-full transition-transform duration-500 ease-in-out border-l border-white/5 flex flex-col">
+    <div class="px-8 pt-24">
+      <h2 class="opacity-40 text-[10px] uppercase font-mono tracking-[0.3em] text-gold">Navigation</h2>
+      <div class="h-[1px] w-full bg-white/10 mt-4 mb-10"></div>
+      
+      <div class="flex flex-col space-y-6" id="links-container">
+        {paths.map((path) => (
+          <a 
+            href={path.link} 
+            class="mobile-link text-4xl font-syne font-bold text-cream translate-x-full transition-transform duration-500 ease-in-out block hover:text-gold"
+          >
+            {path.name}
+          </a>
+        ))}
+      </div>
+    </div>
   </div>
 </nav>
 
+<style>
+  /* Animación de Hamburguesa */
+  #burger-menu-button.active .line-1 { transform: translateY(7px) rotate(45deg); }
+  #burger-menu-button.active .line-2 { opacity: 0; }
+  #burger-menu-button.active .line-3 { transform: translateY(-7px) rotate(-45deg); }
+
+  :global(body.menu-open) { overflow: hidden; }
+</style>
+
 <script>
-  const nav = document.getElementById("mainNav")!;
+  // Selección con Tipado para evitar errores de TS
+  const burgerBtn = document.getElementById("burger-menu-button") as HTMLElement;
+  const dropdown = document.getElementById("dropdown") as HTMLElement;
+  const mobileLinks = document.querySelectorAll<HTMLElement>(".mobile-link");
+  const nav = document.getElementById("mainNav") as HTMLElement;
 
-  // shrink on scroll
-  window.addEventListener(
-    "scroll",
-    () => {
-      nav.style.paddingTop = window.scrollY > 50 ? ".6rem" : "1.25rem";
-      nav.style.paddingBottom = window.scrollY > 50 ? ".6rem" : "1.25rem";
-    },
-    { passive: true },
-  );
+  let isMenuOpen = false;
 
-  // highlight active section
-  window.addEventListener(
-    "scroll",
-    () => {
-      const sections = document.querySelectorAll("section[id]");
-      const links = nav.querySelectorAll("a");
-      let current = "";
-      sections.forEach((s) => {
-        if (window.scrollY >= (s as HTMLElement).offsetTop - 200)
-          current = s.id;
+  // 1. Aplicar retrasos (Transition Delay) secuencialmente
+  mobileLinks.forEach((link, index) => {
+    link.style.transitionDelay = `${index * 80}ms`;
+  });
+
+  function toggleMenu() {
+    isMenuOpen = !isMenuOpen;
+    
+    if (isMenuOpen) {
+      // Abrir
+      burgerBtn.classList.add("active");
+      dropdown.classList.remove("translate-x-full");
+      document.body.classList.add("menu-open");
+      
+      mobileLinks.forEach(link => {
+        link.classList.remove("translate-x-full");
+        link.classList.add("translate-x-0");
       });
-      links.forEach((a) => {
-        a.style.color =
-          a.getAttribute("href") === "#" + current
-            ? "#e8dfc8"
-            : "rgba(232,223,200,.55)";
+    } else {
+      // Cerrar
+      burgerBtn.classList.remove("active");
+      dropdown.classList.add("translate-x-full");
+      document.body.classList.remove("menu-open");
+      
+      mobileLinks.forEach(link => {
+        link.classList.remove("translate-x-0");
+        link.classList.add("translate-x-full");
       });
-    },
-    { passive: true },
-  );
+    }
+  }
+
+  // Eventos
+  burgerBtn.addEventListener("click", toggleMenu);
+
+  // Cerrar al clickear un link
+  mobileLinks.forEach(link => {
+    link.addEventListener("click", toggleMenu);
+  });
+
+  // Lógica de Scroll (Shrink Nav)
+  window.addEventListener("scroll", () => {
+    if (window.scrollY > 50) {
+      nav.style.paddingTop = "0.8rem";
+      nav.style.paddingBottom = "0.8rem";
+      nav.style.backgroundColor = "rgba(0, 8, 20, 0.98)";
+    } else {
+      nav.style.paddingTop = "1.25rem";
+      nav.style.paddingBottom = "1.25rem";
+      nav.style.backgroundColor = "rgba(0, 8, 20, 0.92)";
+    }
+  }, { passive: true });
 </script>

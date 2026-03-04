@@ -92,7 +92,55 @@
     clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 10px 100%, 0 calc(100% - 10px));
     white-space: nowrap;
   }
+.cta-secondary {
+  @apply inline-flex items-center justify-center gap-3 bg-transparent text-[#f7f4f4] font-mono font-bold text-xs md:text-sm tracking-wide px-6 py-4 md:px-8 transition-all duration-200;
+  
+  /* 1. Mantenemos tu recorte */
+  clip-path: polygon(
+    0 0, 
+    calc(100% - 10px) 0, 
+    100% 10px, 
+    100% 100%, 
+    10px 100%, 
+    0 calc(100% - 10px)
+  );
+  
+  /* 2. Truco del falso borde: Usamos un pseudo-elemento que es 1px más pequeño */
+  position: relative;
+  background: #ffc300; /* Este será el color del borde */
+}
 
+.cta-secondary::before {
+  content: "";
+  position: absolute;
+  /* El grosor del borde (1px o 2px) */
+  inset: 1px; 
+  /* El fondo real del botón */
+  background: #000814; 
+  /* El mismo recorte pero ajustado internamente */
+  clip-path: polygon(
+    0 0, 
+    calc(100% - 10px) 0, 
+    100% 10px, 
+    100% 100%, 
+    10px 100%, 
+    0 calc(100% - 10px)
+  );
+  z-index: -1;
+  transition: all 0.2s;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Efecto Hover */
+.cta-secondary:hover::before {
+  background: rgba(255, 195, 0, 0.1); /* Se ilumina por dentro */
+}
   /* Syntax Highlighting */
   .c-kw  { color: #ff7b72; }
   .c-fn  { color: #d2a8ff; }
