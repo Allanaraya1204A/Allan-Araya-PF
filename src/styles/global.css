@@ -3,24 +3,40 @@
 @tailwind utilities;
 
 @layer base {
-  html { scroll-behavior: smooth; cursor: none; }
-  body { background: #000814; color: #e8dfc8; font-family: 'Syne', sans-serif; overflow-x: hidden; }
+  html { 
+    scroll-behavior: smooth; 
+    /* El cursor solo se oculta en PC (escritorios) */
+    @media (min-width: 1024px) {
+      cursor: none; 
+    }
+  }
+  
+  body { 
+    background: #000814; 
+    color: #e8dfc8; 
+    font-family: 'Syne', sans-serif; 
+    overflow-x: hidden;
+    /* Evita que el texto se vea gigante en algunos navegadores móviles */
+    -webkit-text-size-adjust: 100%;
+  }
+
   ::selection { background: #ffc300; color: #000814; }
   ::-webkit-scrollbar { width: 2px; }
   ::-webkit-scrollbar-thumb { background: #ffc300; }
+  
   a { color: inherit; text-decoration: none; }
 }
 
 @layer components {
-  /* ── Cursor */
+  /* ── Cursor (Solo visible en Desktop para evitar bugs en celular) */
   .cur {
-    @apply fixed top-0 left-0 pointer-events-none z-[9999] rounded-full bg-gold;
+    @apply fixed top-0 left-0 pointer-events-none z-[9999] rounded-full bg-gold hidden lg:block;
     width: 8px; height: 8px;
     transform: translate(-50%,-50%);
     mix-blend-mode: difference;
   }
   .cur-ring {
-    @apply fixed top-0 left-0 pointer-events-none z-[9998] rounded-full;
+    @apply fixed top-0 left-0 pointer-events-none z-[9998] rounded-full hidden lg:block;
     width: 32px; height: 32px;
     border: 1px solid rgba(255,195,0,.4);
     transform: translate(-50%,-50%);
@@ -28,39 +44,52 @@
   }
   .cur-ring.big { width: 56px; height: 56px; border-color: rgba(255,195,0,.7); }
 
-  /* ── Scanlines */
+  /* ── Scanlines (Optimizado para no oscurecer demasiado el móvil) */
   .scanlines {
     @apply absolute inset-0 pointer-events-none z-[1];
     background: repeating-linear-gradient(
       to bottom,
-      transparent 0, transparent 3px,
-      rgba(0,0,0,.12) 3px, rgba(0,0,0,.12) 4px
+      transparent 0, transparent 2px,
+      rgba(0,0,0,.08) 2px, rgba(0,0,0,.08) 3px
     );
-    opacity: .3;
+    opacity: .2;
   }
 
-  /* ── Section label */
-  .sec-label { @apply font-mono text-gold text-xs tracking-widest mb-12; opacity: .65; }
-  .mono-tag  { opacity: .5; }
+  /* ── Section label (Márgenes adaptativos) */
+  .sec-label { 
+    @apply font-mono text-gold text-[10px] md:text-xs tracking-widest mb-6 md:mb-12; 
+    opacity: .65; 
+  }
+  .mono-tag { opacity: .5; }
 
-  /* ── Scroll reveal */
-  .reveal { opacity: 0; transform: translateY(28px); transition: opacity .7s ease, transform .7s cubic-bezier(.16,1,.3,1); }
+  /* ── Scroll reveal (Menos desplazamiento en móvil para que sea fluido) */
+  .reveal { 
+    opacity: 0; 
+    transform: translateY(15px); 
+    transition: opacity .6s ease, transform .6s cubic-bezier(.16,1,.3,1); 
+  }
   .reveal.visible { opacity: 1; transform: none; }
 
-  /* ── CTA buttons */
+  /* ── CTA buttons (Tamaños táctiles para celular) */
   .cta-primary {
-    @apply inline-flex items-center gap-3 bg-gold text-ink font-mono font-bold text-sm tracking-wide px-8 py-3 transition-all duration-200;
+    @apply inline-flex items-center gap-3 bg-gold text-ink font-mono font-bold text-xs md:text-sm tracking-wide px-6 py-3 md:px-8 transition-all duration-200;
     clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 10px 100%, 0 calc(100% - 10px));
+    /* Asegura que el botón no se rompa si el texto es largo */
+    white-space: nowrap;
   }
   .cta-primary:hover { @apply bg-spark; gap: 1.2rem; }
+  
   .cta-secondary {
-    @apply inline-flex items-center font-mono text-sm tracking-wide px-8 py-3 transition-all duration-200;
+    @apply inline-flex items-center font-mono text-xs md:text-sm tracking-wide px-6 py-3 md:px-8 transition-all duration-200;
     border: 1px solid rgba(255,195,0,.3);
     color: rgba(232,223,200,.45);
   }
   .cta-secondary:hover { border-color: #ffc300; color: #e8dfc8; }
 
-  /* ── IDE syntax highlight */
+  /* ── IDE syntax highlight (Previene que el código se salga de la pantalla) */
+  pre, code {
+    @apply max-w-full overflow-x-auto;
+  }
   .c-kw  { color: #ff7b72; }
   .c-fn  { color: #d2a8ff; }
   .c-str { color: #a5d6ff; }
@@ -70,11 +99,11 @@
   .c-def { color: #ffa657; }
 
   /* ── Animations */
-  .badge-dot { @apply w-[7px] h-[7px] bg-green-400 rounded-full; animation: blink 2s ease-in-out infinite; }
+  .badge-dot { @apply w-[6px] h-[6px] bg-green-400 rounded-full; animation: blink 2s ease-in-out infinite; }
   .scroll-bar { animation: scrollDown 2s ease-in-out infinite; }
 }
 
-@keyframes blink     { 0%,100%{opacity:1} 50%{opacity:.3} }
-@keyframes scrollDown{ 0%{top:-40%} 100%{top:140%} }
-@keyframes slideUp   { from{opacity:0;transform:translateY(60px)} to{opacity:1;transform:translateY(0)} }
-@keyframes fadeIn    { from{opacity:0} to{opacity:1} }
+@keyframes blink      { 0%,100%{opacity:1} 50%{opacity:.3} }
+@keyframes scrollDown { 0%{top:-40%} 100%{top:140%} }
+@keyframes slideUp    { from{opacity:0;transform:translateY(40px)} to{opacity:1;transform:translateY(0)} }
+@keyframes fadeIn     { from{opacity:0} to{opacity:1} }
