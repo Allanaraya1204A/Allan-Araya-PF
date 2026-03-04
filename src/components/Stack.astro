@@ -189,11 +189,34 @@ const tabData: Record<string,string> = {
 };`
 };
 
-const tabLogos: Record<string,{icon:string,name:string}[]> = {
-  frontend: [{icon:'⚛️',name:'React JS'},{icon:'📱',name:'React Native'},{icon:'🔷',name:'TypeScript'},{icon:'🟨',name:'JavaScript'},{icon:'🌐',name:'HTML5'},{icon:'🎨',name:'CSS3'}],
-  backend:  [{icon:'🟢',name:'Node.js'},{icon:'🐱',name:'NestJS'},{icon:'⚡',name:'gRPC'},{icon:'🔗',name:'REST APIs'},{icon:'🧩',name:'Microservicios'}],
-  database: [{icon:'🐘',name:'PostgreSQL'},{icon:'🐬',name:'MySQL'},{icon:'🔷',name:'SQL Server'},{icon:'✨',name:'Prisma ORM'}],
-  devops:   [{icon:'🐳',name:'Docker'},{icon:'☁️',name:'AWS'},{icon:'🔵',name:'Azure'},{icon:'🐙',name:'GitHub'},{icon:'📦',name:'Git'}]
+export const tabLogos: Record<string, {icon: string, name: string}[]> = {
+  frontend: [
+    { icon: 'logos:react', name: 'React JS' },
+    { icon: 'logos:react', name: 'React Native' },
+    { icon: 'devicon:typescript', name: 'TypeScript' },
+    { icon: 'logos:javascript', name: 'JavaScript' },
+    { icon: 'vscode-icons:file-type-html', name: 'HTML' },
+    { icon: 'devicon:css3', name: 'CSS' }
+
+  ],
+  backend: [
+    { icon: 'logos:nodejs-icon', name: 'Node.js' },
+    { icon: 'logos:nestjs', name: 'NestJS' },
+    { icon: 'devicon:grpc', name: 'gRPC' },
+    { icon: 'carbon:microservices-1', name: 'Microservices' }
+  ],
+   database: [
+    { icon: 'devicon:microsoftsqlserver', name: 'Sqlserver' },
+    { icon: 'logos:postgresql', name: 'Posgresql' },
+    { icon: 'logos:mysql', name: 'Mysql' },
+    { icon: 'lineicons:prisma', name: 'Prisma ORM' }
+  ],
+  devops: [
+    { icon: 'logos:docker-icon', name: 'Docker' },
+    { icon: 'logos:azure-icon', name: 'Azure' },
+    { icon: 'mdi:github', name: 'GitHub' },
+    { icon: 'logos:git-icon', name: 'Git' }
+  ]
 };
 
 const tabTitles: Record<string,string> = { frontend:'Frontend', backend:'Backend', database:'Database', devops:'DevOps' };
@@ -215,7 +238,17 @@ function setTab(name: string) {
   const lines        = tabData[name].split('\n').length;
   gutterEl.innerHTML = Array.from({length:lines},(_,i)=>`<span>${i+1}</span>`).join('');
   svTitle.textContent = tabTitles[name];
-  svBody.innerHTML   = tabLogos[name].map(t=>`<div class="sv-chip"><span class="sv-chip-icon">${t.icon}</span><span class="sv-chip-name">${t.name}</span></div>`).join('');
+  // Busca esta línea en tu función setTab:
+svBody.innerHTML = tabLogos[name].map(t => `
+  <div class="sv-chip">
+    <iconify-icon 
+      icon="${t.icon}" 
+      width="30" 
+      height="30"
+    ></iconify-icon>
+    <span class="sv-chip-name">${t.name}</span>
+  </div>
+`).join('');
   outText.textContent = outTexts[name];
 
   document.querySelectorAll('.ide-tab').forEach(t => t.classList.toggle('active',(t as HTMLElement).dataset.tab===name));
@@ -232,4 +265,7 @@ const obs = new IntersectionObserver(entries=>{
   entries.forEach(e=>{ if(e.isIntersecting) e.target.classList.add('visible'); });
 },{threshold:0.08});
 document.querySelectorAll('#stack .reveal').forEach(el=>obs.observe(el));
+
+
 </script>
+<script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>

@@ -2,8 +2,7 @@
 
 ---
 
-<section id="sobre" class="relative py-32 px-12 bg-deep">
-  <!-- top gold line -->
+<section id="sobre" class="relative py-16 md:py-32 px-6 md:px-12 bg-deep">
   <div
     class="absolute top-0 left-0 right-0 h-px"
     style="background:linear-gradient(90deg,transparent,rgba(255,195,0,.2),transparent)"
@@ -14,42 +13,41 @@
     <span class="mono-tag">&lt;</span>01<span class="mono-tag">/&gt;</span>
   </div>
 
-  <div class="grid gap-16 items-start" style="grid-template-columns: 1fr 2fr">
-    <!-- left: title -->
+  <div class="grid grid-cols-1 md:grid-cols-[1fr_2fr] gap-10 md:gap-16 items-start">
+    
     <div class="reveal">
       <h2
         class="font-syne font-extrabold leading-[.9] text-cream"
-        style="font-size:clamp(3rem,6vw,5.5rem)"
+        style="font-size:clamp(3.5rem, 8vw, 5.5rem)"
       >
         Sobre<br /><span class="text-gold">mí.</span>
       </h2>
-      <div class="w-10 h-[3px] bg-gold mt-8"></div>
+      <div class="w-10 h-[3px] bg-gold mt-4 md:mt-8"></div>
     </div>
 
-    <!-- right: text -->
     <div class="reveal">
       <p
         class="font-syne font-bold text-cream mb-6 leading-snug"
-        style="font-size:clamp(1.1rem,2.2vw,1.6rem)"
+        style="font-size:clamp(1.2rem, 2.2vw, 1.6rem)"
       >
         Soy desarrollador de software<br />e ingeniero en TI.
       </p>
+      
       <p
-        class="font-syne text-sm leading-loose mb-5"
-        style="color:rgba(232,223,200,.45)"
+        class="font-syne text-sm md:text-base leading-relaxed mb-5"
+        style="color:rgba(232,223,200,.6)"
       >
         Me especializo en desarrollo web y móvil, con experiencia en
         aplicaciones empresariales orientadas a la gestión y optimización de
-        procesos. Trabajo tanto en frontend como en backend — entiendo el
-        sistema completo, cómo cada pieza impacta a las demás.
+        procesos. Trabajo tanto en frontend como en backend.
       </p>
+      
       <p
-        class="font-syne text-sm leading-loose mb-8"
-        style="color:rgba(232,223,200,.45)"
+        class="font-syne text-sm md:text-base leading-relaxed mb-8"
+        style="color:rgba(232,223,200,.6)"
       >
         Actualmente enfocado en crecer en arquitectura backend, sistemas
-        escalables y computación en la nube. Siempre aprendiendo, siempre
-        mejorando lo que ya construí.
+        escalables y computación en la nube.
       </p>
 
       <div class="flex flex-wrap gap-2">
@@ -63,7 +61,7 @@
             "Escalabilidad",
           ].map((tag) => (
             <span
-              class="font-mono text-gold text-xs tracking-wide px-3 py-1"
+              class="font-mono text-gold text-[10px] md:text-xs tracking-wide px-3 py-1"
               style="background:rgba(255,195,0,.07); border:1px solid rgba(255,195,0,.2)"
             >
               {tag}
